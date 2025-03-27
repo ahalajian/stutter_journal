@@ -15,6 +15,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 import { useEffect } from 'react';
+import { styles } from '../styles/EntryScreen.styles';
 
 export default function EntryScreen({ route, navigation }) {
   const { entryId } = route.params || {};
@@ -145,51 +146,3 @@ export default function EntryScreen({ route, navigation }) {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 24,
-    paddingBottom: 40,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    height: 200,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 12,
-    padding: 12,
-    borderRadius: 8,
-    textAlignVertical: 'top',
-  },
-  stuckWordsSection: {
-    marginBottom: 12,
-  },
-  stuckWordInput: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 8,
-  },
-  stuckWordsList: {
-    marginBottom: 12,
-  },
-  stuckWordBubble: {
-    backgroundColor: '#e0e0e0',
-    borderRadius: 16,
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  entryLabel: {
-    fontWeight: 'bold',
-    marginTop: 8,
-    marginBottom: 4,
-  },
-});

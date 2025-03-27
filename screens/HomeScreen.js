@@ -8,6 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { styles } from '../styles/HomeScreen.styles';
 
 export default function HomeScreen({ navigation }) {
   const [entries, setEntries] = useState([]);
@@ -104,47 +105,3 @@ export default function HomeScreen({ navigation }) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 24,
-    paddingBottom: 40,
-    backgroundColor: '#ffffff',
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  entryBox: {
-    backgroundColor: '#f2f2f2',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  entryDate: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 6,
-  },
-  entryLabel: {
-    fontWeight: 'bold',
-    marginTop: 8,
-    marginBottom: 4,
-  },
-  stuckWordBubble: {
-    backgroundColor: '#e0e0e0',
-    borderRadius: 16,
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    marginTop: 12,
-    justifyContent: 'flex-start',
-  },
-});
