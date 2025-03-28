@@ -129,10 +129,10 @@ export default function EntryScreen({ route, navigation }) {
 
           {stuckWordsList.length > 0 && (
             <View style={styles.stuckWordsList}>
-              <Text style={styles.entryLabel}>Stuck Words:</Text>
+              <Text style={styles.label}>Stuck Words:</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                 {stuckWordsList.map((word, index) => (
-                  <View key={index} style={styles.stuckWordBubble}>
+                  <View key={index} style={styles.wordBubble}>
                     <Text>{word}</Text>
                   </View>
                 ))}

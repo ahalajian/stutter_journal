@@ -12,12 +12,12 @@ export const globalStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  entryLabel: {
+  label: {
     fontWeight: 'bold',
     marginTop: 8,
     marginBottom: 4,
   },
-  stuckWordBubble: {
+  wordBubble: {
     backgroundColor: '#e0e0e0',
     borderRadius: 16,
     paddingVertical: 4,
