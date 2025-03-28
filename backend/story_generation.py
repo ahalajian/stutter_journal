@@ -3,14 +3,14 @@ import os
 
 api_key = os.getenv("OPENAI_API_KEY")
 
-def generate_story(words, tones=["neutral"]):
+def generate_story(words:list[str], tone:str="neutral"):
     sentence_count = min(6, len(words))
     
     prompt = f"""
     You are a creative sentence generator.
     
     Write a short story using the words: {', '.join(words)}. 
-    Keep the tone {', '.join(tones)}.
+    Keep the tone {tone}.
     Use very short, simple sentences. Avoid long or complex phrasing.
     Around {sentence_count} sentences.
     """

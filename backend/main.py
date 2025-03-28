@@ -9,7 +9,7 @@ app = FastAPI()
 
 class StoryRequest(BaseModel):
     words: list[str]
-    tone: list[str] | None = None
+    tone: str | None = None
 
 @app.post("/generate-story")
 def generate_story_endpoint(request: StoryRequest):
