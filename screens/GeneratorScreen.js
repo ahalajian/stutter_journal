@@ -6,17 +6,34 @@ import {
   Button,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { styles } from '../styles/GeneratorScreen.styles';
 
 export default function GeneratorScreen() {
-  const [words, setWords] = useState('');
-  const [tone, setTone] = useState('neutral');
+  const [newWord, setNewWord] = useState('');
+  const [wordsList, setWordsList] = useState([]);
+  const [tone, setTone] = useState('');
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState('');
 
+  const handleAddWord = () => {
+    if (newWord.trim() !== '') {
+      setWordsList([...wordsList, newWord.trim()]);
+      setNewWord('');
+    }
+  };
+
   const generateStory = async () => {
+    if (wordsList.length === 0) {
+      Alert.alert(
+        'No words',
+        'Please add at least one word before generating.'
+      );
+      return;
+    }
+
     setLoading(true);
     setStory('');
 
@@ -25,11 +42,10 @@ export default function GeneratorScreen() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          words: words.split(',').map((w) => w.trim()),
+          words: wordsList,
           tone: tone,
         }),
       });
-
       const data = await response.json();
       setStory(data.story);
     } catch (error) {
@@ -41,13 +57,29 @@ export default function GeneratorScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Enter stuck words (comma-separated):</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="e.g. apple, breeze, library"
-        value={words}
-        onChangeText={setWords}
-      />
+      <Text style={styles.label}>Add words you got stuck on:</Text>
+      <View style={styles.wordInputSection}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter a word"
+          value={newWord}
+          onChangeText={setNewWord}
+        />
+        <Button title="Add Word" onPress={handleAddWord} />
+      </View>
+
+      {wordsList.length > 0 && (
+        <View style={styles.wordsList}>
+          <Text style={styles.label}>Your Words:</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {wordsList.map((word, index) => (
+              <View key={index} style={styles.wordBubble}>
+                <Text>{word}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      )}
 
       <Text style={styles.label}>Select a tone:</Text>
       <Picker
