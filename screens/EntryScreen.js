@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 import { useEffect } from 'react';
 import { styles } from '../styles/EntryScreen.styles';
+import { CustomButton } from '../components/CustomButton';
 
 export default function EntryScreen({ route, navigation }) {
   const { entryId } = route.params || {};
@@ -124,7 +125,12 @@ export default function EntryScreen({ route, navigation }) {
               value={newStuckWord}
               onChangeText={setNewStuckWord}
             />
-            <Button title="Add Word" onPress={handleAddStuckWord} />
+            <CustomButton
+              title="Add Word"
+              onPress={handleAddStuckWord}
+              variant="primary"
+              size="small"
+            />
           </View>
 
           {stuckWordsList.length > 0 && (
@@ -140,7 +146,12 @@ export default function EntryScreen({ route, navigation }) {
             </View>
           )}
 
-          <Button title="Save Entry" onPress={handleSave} />
+          <CustomButton
+            title="Save Entry"
+            onPress={handleSave}
+            variant="primary"
+            size="normal"
+          />
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

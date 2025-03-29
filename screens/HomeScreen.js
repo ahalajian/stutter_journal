@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../styles/HomeScreen.styles';
+import { CustomButton } from '../components/CustomButton';
 
 export default function HomeScreen({ navigation }) {
   const [entries, setEntries] = useState([]);
@@ -57,18 +58,23 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Button
-        title="Generate a Story"
-        onPress={() => navigation.navigate('Generator')}
-      />
+      <View style={styles.headerButtons}>
+        <CustomButton
+          title="Generate a Story"
+          onPress={() => navigation.navigate('Generator')}
+          variant="primary"
+        />
+        <CustomButton
+          title="New Entry"
+          onPress={() => navigation.navigate('New Entry')}
+          variant="primary"
+        />
+      </View>
+
       <Text style={styles.heading}>Your Journal Entries</Text>
-      <Button
-        title="New Entry"
-        onPress={() => navigation.navigate('New Entry')}
-      />
 
       {entries.length === 0 && (
-        <Text style={{ marginTop: 20 }}>No entries yet. Start journaling!</Text>
+        <Text style={styles.emptyText}>No entries yet. Start journaling!</Text>
       )}
 
       {entries.map((entry) => (
@@ -79,7 +85,7 @@ export default function HomeScreen({ navigation }) {
           {entry.stuckWords && entry.stuckWords.length > 0 ? (
             <>
               <Text style={styles.entryLabel}>Stuck Words:</Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              <View style={styles.wordsContainer}>
                 {entry.stuckWords.map((word, i) => (
                   <View key={i} style={styles.wordBubble}>
                     <Text>{word}</Text>
@@ -91,17 +97,19 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.entryLabel}>Stuck Words: None</Text>
           )}
           <View style={styles.buttonRow}>
-            <Button
+            <CustomButton
               title="Edit"
               onPress={() =>
                 navigation.navigate('New Entry', { entryId: entry.id })
               }
+              variant="secondary"
+              size="small"
             />
-            <View style={{ width: 10 }} />
-            <Button
+            <CustomButton
               title="Delete"
-              color="red"
               onPress={() => confirmDelete(entry.id)}
+              variant="danger"
+              size="small"
             />
           </View>
         </View>

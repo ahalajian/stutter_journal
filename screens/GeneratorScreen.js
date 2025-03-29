@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { styles } from '../styles/GeneratorScreen.styles';
+import { CustomButton } from '../components/CustomButton';
 
 export default function GeneratorScreen() {
   const [newWord, setNewWord] = useState('');
@@ -65,7 +66,12 @@ export default function GeneratorScreen() {
           value={newWord}
           onChangeText={setNewWord}
         />
-        <Button title="Add Word" onPress={handleAddWord} />
+        <CustomButton
+          title="Add Word"
+          onPress={handleAddWord}
+          variant="primary"
+          size="small"
+        />
       </View>
 
       {wordsList.length > 0 && (
@@ -94,7 +100,12 @@ export default function GeneratorScreen() {
         <Picker.Item label="Serious" value="serious" />
       </Picker>
 
-      <Button title="Generate Story" onPress={generateStory} />
+      <CustomButton
+        title="Generate Story"
+        onPress={generateStory}
+        variant="primary"
+        size="normal"
+      />
 
       {loading && <ActivityIndicator style={{ marginTop: 20 }} size="large" />}
 
