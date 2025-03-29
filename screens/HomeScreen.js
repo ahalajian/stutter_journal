@@ -57,6 +57,10 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Button
+        title="Generate a Story"
+        onPress={() => navigation.navigate('Generator')}
+      />
       <Text style={styles.heading}>Your Journal Entries</Text>
       <Button
         title="New Entry"
@@ -77,7 +81,7 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.entryLabel}>Stuck Words:</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                 {entry.stuckWords.map((word, i) => (
-                  <View key={i} style={styles.stuckWordBubble}>
+                  <View key={i} style={styles.wordBubble}>
                     <Text>{word}</Text>
                   </View>
                 ))}
