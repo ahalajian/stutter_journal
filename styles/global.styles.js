@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
+  // Layout styles
   container: {
     flexGrow: 1,
     padding: 24,
     paddingBottom: 40,
     backgroundColor: '#ffffff',
   },
+
+  // Text styles
   heading: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -17,6 +20,28 @@ export const globalStyles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 4,
   },
+
+  // Input styles
+  conversationInput: {
+    height: 200,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 12,
+    padding: 12,
+    borderRadius: 8,
+    textAlignVertical: 'top',
+    marginRight: 8,
+  },
+  stuckWordInput: {
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 8,
+    marginRight: 8,
+  },
+
+  //stuck word styles
   wordBubble: {
     backgroundColor: '#e0e0e0',
     borderRadius: 16,
@@ -24,5 +49,16 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 12,
     marginRight: 8,
     marginBottom: 8,
+  },
+  wordsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 4,
+  },
+  stuckWordsSection: {
+    marginBottom: 12,
+  },
+  stuckWordsList: {
+    marginBottom: 12,
   },
 });

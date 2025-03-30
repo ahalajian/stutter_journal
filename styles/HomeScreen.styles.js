@@ -3,12 +3,6 @@ import { globalStyles } from './global.styles';
 
 export const styles = {
   ...globalStyles,
-  container: {
-    flexGrow: 1,
-    padding: 24,
-    paddingBottom: 40,
-    backgroundColor: '#ffffff',
-  },
   headerButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -37,11 +31,6 @@ export const styles = {
     fontWeight: 'bold',
     marginTop: 8,
     marginBottom: 4,
-  },
-  wordsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 4,
   },
   buttonRow: {
     flexDirection: 'row',

@@ -108,7 +108,7 @@ export default function EntryScreen({ route, navigation }) {
         <Text style={styles.heading}>New Journal Entry</Text>
 
         <TextInput
-          style={styles.input}
+          style={styles.conversationInput}
           multiline
           placeholder="Write about your conversation..."
           value={entry}

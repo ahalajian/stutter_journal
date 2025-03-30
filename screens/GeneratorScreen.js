@@ -53,9 +53,9 @@ export default function GeneratorScreen() {
     <KeyboardAwareView>
       <View style={styles.container}>
         <Text style={styles.label}>Add words you got stuck on:</Text>
-        <View style={styles.wordInputSection}>
+        <View style={styles.stuckWordsSection}>
           <TextInput
-            style={styles.input}
+            style={styles.stuckWordInput}
             placeholder="Enter a word"
             value={newWord}
             onChangeText={setNewWord}
@@ -71,7 +71,7 @@ export default function GeneratorScreen() {
         </View>
 
         {wordsList.length > 0 && (
-          <View style={styles.wordsList}>
+          <View style={styles.stuckWordsList}>
             <Text style={styles.label}>Your Words:</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {wordsList.map((word, index) => (
