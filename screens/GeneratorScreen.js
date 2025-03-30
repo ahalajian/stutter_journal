@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  ScrollView,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import { View, Text, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { styles } from '../styles/GeneratorScreen.styles';
 import { CustomButton } from '../components/CustomButton';
+import { KeyboardAwareView } from '../components/KeyboardAwareView';
 
 export default function GeneratorScreen() {
   const [newWord, setNewWord] = useState('');
@@ -57,63 +50,69 @@ export default function GeneratorScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Add words you got stuck on:</Text>
-      <View style={styles.wordInputSection}>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter a word"
-          value={newWord}
-          onChangeText={setNewWord}
-        />
-        <CustomButton
-          title="Add Word"
-          onPress={handleAddWord}
-          variant="primary"
-          size="small"
-        />
-      </View>
+    <KeyboardAwareView>
+      <View style={styles.container}>
+        <Text style={styles.label}>Add words you got stuck on:</Text>
+        <View style={styles.wordInputSection}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter a word"
+            value={newWord}
+            onChangeText={setNewWord}
+            onSubmitEditing={handleAddWord} // allow hitting "return" to add
+            returnKeyType="done"
+          />
+          <CustomButton
+            title="Add Word"
+            onPress={handleAddWord}
+            variant="primary"
+            size="small"
+          />
+        </View>
 
-      {wordsList.length > 0 && (
-        <View style={styles.wordsList}>
-          <Text style={styles.label}>Your Words:</Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {wordsList.map((word, index) => (
-              <View key={index} style={styles.wordBubble}>
-                <Text>{word}</Text>
-              </View>
-            ))}
+        {wordsList.length > 0 && (
+          <View style={styles.wordsList}>
+            <Text style={styles.label}>Your Words:</Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {wordsList.map((word, index) => (
+                <View key={index} style={styles.wordBubble}>
+                  <Text>{word}</Text>
+                </View>
+              ))}
+            </View>
           </View>
-        </View>
-      )}
+        )}
 
-      <Text style={styles.label}>Select a tone:</Text>
-      <Picker
-        selectedValue={tone}
-        onValueChange={setTone}
-        style={styles.picker}
-      >
-        <Picker.Item label="Neutral" value="neutral" />
-        <Picker.Item label="Humorous" value="humorous" />
-        <Picker.Item label="Poetic" value="poetic" />
-        <Picker.Item label="Adventurous" value="adventurous" />
-        <Picker.Item label="Serious" value="serious" />
-      </Picker>
+        <Text style={styles.label}>Select a tone:</Text>
+        <Picker
+          selectedValue={tone}
+          onValueChange={setTone}
+          style={styles.picker}
+        >
+          <Picker.Item label="Neutral" value="neutral" />
+          <Picker.Item label="Humorous" value="humorous" />
+          <Picker.Item label="Poetic" value="poetic" />
+          <Picker.Item label="Adventurous" value="adventurous" />
+          <Picker.Item label="Serious" value="serious" />
+        </Picker>
 
-      <CustomButton
-        title="Generate Story"
-        onPress={generateStory}
-        variant="primary"
-        size="normal"
-      />
+        <CustomButton
+          title="Generate Story"
+          onPress={generateStory}
+          variant="primary"
+          size="normal"
+        />
 
-      {loading && <ActivityIndicator style={{ marginTop: 20 }} size="large" />}
+        {loading && (
+          <ActivityIndicator style={{ marginTop: 20 }} size="large" />
+        )}
 
-      {story && (
-        <View style={styles.storyBox}>
-          <Text style={styles.storyText}>{story}</Text>
-        </View>
-      )}
-    </ScrollView>
+        {story && (
+          <View style={styles.storyBox}>
+            <Text style={styles.storyText}>{story}</Text>
+          </View>
+        )}
+      </View>
+    </KeyboardAwareView>
   );
 }

@@ -17,6 +17,7 @@ import uuid from 'react-native-uuid';
 import { useEffect } from 'react';
 import { styles } from '../styles/EntryScreen.styles';
 import { CustomButton } from '../components/CustomButton';
+import { KeyboardAwareView } from '../components/KeyboardAwareView';
 
 export default function EntryScreen({ route, navigation }) {
   const { entryId } = route.params || {};
@@ -102,58 +103,57 @@ export default function EntryScreen({ route, navigation }) {
     }
   };
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.heading}>New Journal Entry</Text>
+    <KeyboardAwareView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>New Journal Entry</Text>
 
+        <TextInput
+          style={styles.input}
+          multiline
+          placeholder="Write about your conversation..."
+          value={entry}
+          onChangeText={setEntry}
+          onSubmitEditing={handleSave} // allow hitting "return" to save
+          returnKeyType="done"
+        />
+
+        <View style={styles.stuckWordsSection}>
           <TextInput
-            style={styles.input}
-            multiline
-            placeholder="Write about your conversation..."
-            value={entry}
-            onChangeText={setEntry}
+            style={styles.stuckWordInput}
+            placeholder="Enter a word you got stuck on"
+            value={newStuckWord}
+            onChangeText={setNewStuckWord}
+            onSubmitEditing={handleAddStuckWord} // allow hitting "return" to add
+            returnKeyType="done"
           />
-
-          <View style={styles.stuckWordsSection}>
-            <TextInput
-              style={styles.stuckWordInput}
-              placeholder="Enter a word you got stuck on"
-              value={newStuckWord}
-              onChangeText={setNewStuckWord}
-            />
-            <CustomButton
-              title="Add Word"
-              onPress={handleAddStuckWord}
-              variant="primary"
-              size="small"
-            />
-          </View>
-
-          {stuckWordsList.length > 0 && (
-            <View style={styles.stuckWordsList}>
-              <Text style={styles.label}>Stuck Words:</Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {stuckWordsList.map((word, index) => (
-                  <View key={index} style={styles.wordBubble}>
-                    <Text>{word}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
           <CustomButton
-            title="Save Entry"
-            onPress={handleSave}
+            title="Add Word"
+            onPress={handleAddStuckWord}
             variant="primary"
-            size="normal"
+            size="small"
           />
-        </ScrollView>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        </View>
+
+        {stuckWordsList.length > 0 && (
+          <View style={styles.stuckWordsList}>
+            <Text style={styles.label}>Stuck Words:</Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {stuckWordsList.map((word, index) => (
+                <View key={index} style={styles.wordBubble}>
+                  <Text>{word}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+
+        <CustomButton
+          title="Save Entry"
+          onPress={handleSave}
+          variant="primary"
+          size="normal"
+        />
+      </View>
+    </KeyboardAwareView>
   );
 }
