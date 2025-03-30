@@ -18,6 +18,7 @@ import { useEffect } from 'react';
 import { styles } from '../styles/EntryScreen.styles';
 import { CustomButton } from '../components/CustomButton';
 import { KeyboardAwareView } from '../components/KeyboardAwareView';
+import { addToGlobalWords } from '../utils/wordManager';
 
 export default function EntryScreen({ route, navigation }) {
   const { entryId } = route.params || {};
@@ -62,6 +63,9 @@ export default function EntryScreen({ route, navigation }) {
     }
 
     try {
+      // Update global words first
+      await addToGlobalWords(stuckWordsList);
+
       const existing = await AsyncStorage.getItem('journalEntries');
       const entries = existing ? JSON.parse(existing) : [];
 

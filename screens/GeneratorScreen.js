@@ -1,21 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, ActivityIndicator, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  ActivityIndicator,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { styles } from '../styles/GeneratorScreen.styles';
 import { CustomButton } from '../components/CustomButton';
 import { KeyboardAwareView } from '../components/KeyboardAwareView';
+import { getGlobalWords } from '../utils/wordManager';
 
 export default function GeneratorScreen() {
   const [newWord, setNewWord] = useState('');
   const [wordsList, setWordsList] = useState([]);
+  const [globalWords, setGlobalWords] = useState([]);
   const [tone, setTone] = useState('');
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState('');
 
+  // Load global words when screen mounts
+  useEffect(() => {
+    loadGlobalWords();
+  }, []);
+
+  const loadGlobalWords = async () => {
+    const words = await getGlobalWords();
+    setGlobalWords(words);
+  };
+
   const handleAddWord = () => {
     if (newWord.trim() !== '') {
-      setWordsList([...wordsList, newWord.trim()]);
+      const word = newWord.trim();
+      setWordsList([...wordsList, word]);
       setNewWord('');
+    }
+  };
+
+  const handleAddGlobalWord = (word) => {
+    if (!wordsList.includes(word)) {
+      setWordsList([...wordsList, word]);
     }
   };
 
@@ -78,6 +104,34 @@ export default function GeneratorScreen() {
                 <View key={index} style={styles.wordBubble}>
                   <Text>{word}</Text>
                 </View>
+              ))}
+            </View>
+          </View>
+        )}
+
+        {globalWords.length > 0 && (
+          <View style={styles.previousWordsSection}>
+            <Text style={styles.label}>Previously Used Words:</Text>
+            <View style={styles.wordsContainer}>
+              {globalWords.map((word, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleAddGlobalWord(word)}
+                  style={[
+                    styles.wordBubble,
+                    wordsList.includes(word) && styles.selectedWordBubble,
+                  ]}
+                >
+                  <Text
+                    style={
+                      wordsList.includes(word)
+                        ? styles.selectedWordText
+                        : styles.wordText
+                    }
+                  >
+                    {word}
+                  </Text>
+                </TouchableOpacity>
               ))}
             </View>
           </View>
