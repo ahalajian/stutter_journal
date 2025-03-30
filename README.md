@@ -1,6 +1,6 @@
 # Stutter Journal
 
-A React Native mobile application designed to help individuals who stutter track and manage their speech experiences. This app provides a platform for users to journal their stuttering moments and practice with words that they've struggled with in a fun manner.
+A React Native mobile application designed to help individuals who stutter track and manage their speech experiences. This app provides a platform for users to journal their stuttering moments and generate fun stories using words that they've stuttered on
 
 ## Features
 
