@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../styles/HomeScreen.styles';
 import { CustomButton } from '../components/CustomButton';

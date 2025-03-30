@@ -14,6 +14,7 @@ import { CustomButton } from '../components/CustomButton';
 import { KeyboardAwareView } from '../components/KeyboardAwareView';
 import { getGlobalWords } from '../utils/wordManager';
 import { StuckWordsDisplay } from '../components/StuckWordsDisplay';
+
 export default function GeneratorScreen() {
   const [newWord, setNewWord] = useState('');
   const [wordsList, setWordsList] = useState([]);
@@ -102,8 +103,8 @@ export default function GeneratorScreen() {
         {globalWords.length > 0 && (
           <View style={styles.previousWordsSection}>
             <Text style={styles.label}>Previously Used Words:</Text>
-            <ScrollView style={{ maxHeight: 67 }}>
-              <View style={styles.wordsContainer}>
+            <ScrollView style={styles.stuckWordsScrollView}>
+              <View style={styles.wordsRowContainer}>
                 {globalWords.map((word, index) => (
                   <TouchableOpacity
                     key={index}

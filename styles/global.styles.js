@@ -15,6 +15,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+
   label: {
     fontWeight: 'bold',
     marginTop: 8,
@@ -50,12 +51,16 @@ export const globalStyles = StyleSheet.create({
     marginRight: 8,
     marginBottom: 8,
   },
-  wordsContainer: {
+  wordsRowContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 4,
   },
   stuckWordsSection: {
+    marginBottom: 12,
+  },
+  stuckWordsScrollView: {
+    maxHeight: 67,
     marginBottom: 12,
   },
 });
