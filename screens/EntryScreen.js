@@ -19,6 +19,7 @@ import { styles } from '../styles/EntryScreen.styles';
 import { CustomButton } from '../components/CustomButton';
 import { KeyboardAwareView } from '../components/KeyboardAwareView';
 import { addToGlobalWords } from '../utils/wordManager';
+import { StuckWordsDisplay } from '../components/StuckWordsDisplay';
 
 export default function EntryScreen({ route, navigation }) {
   const { entryId } = route.params || {};
@@ -138,18 +139,7 @@ export default function EntryScreen({ route, navigation }) {
           />
         </View>
 
-        {stuckWordsList.length > 0 && (
-          <View style={styles.stuckWordsList}>
-            <Text style={styles.label}>Stuck Words:</Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-              {stuckWordsList.map((word, index) => (
-                <View key={index} style={styles.wordBubble}>
-                  <Text>{word}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        )}
+        <StuckWordsDisplay stuckWords={stuckWordsList} text="Stuck Words" />
 
         <CustomButton
           title="Save Entry"

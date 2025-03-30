@@ -58,7 +58,4 @@ export const globalStyles = StyleSheet.create({
   stuckWordsSection: {
     marginBottom: 12,
   },
-  stuckWordsList: {
-    marginBottom: 12,
-  },
 });

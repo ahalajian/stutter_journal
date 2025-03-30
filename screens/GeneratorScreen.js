@@ -6,13 +6,14 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { styles } from '../styles/GeneratorScreen.styles';
 import { CustomButton } from '../components/CustomButton';
 import { KeyboardAwareView } from '../components/KeyboardAwareView';
 import { getGlobalWords } from '../utils/wordManager';
-
+import { StuckWordsDisplay } from '../components/StuckWordsDisplay';
 export default function GeneratorScreen() {
   const [newWord, setNewWord] = useState('');
   const [wordsList, setWordsList] = useState([]);
@@ -96,44 +97,35 @@ export default function GeneratorScreen() {
           />
         </View>
 
-        {wordsList.length > 0 && (
-          <View style={styles.stuckWordsList}>
-            <Text style={styles.label}>Your Words:</Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-              {wordsList.map((word, index) => (
-                <View key={index} style={styles.wordBubble}>
-                  <Text>{word}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        )}
+        <StuckWordsDisplay stuckWords={wordsList} text="Your Words" />
 
         {globalWords.length > 0 && (
           <View style={styles.previousWordsSection}>
             <Text style={styles.label}>Previously Used Words:</Text>
-            <View style={styles.wordsContainer}>
-              {globalWords.map((word, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => handleAddGlobalWord(word)}
-                  style={[
-                    styles.wordBubble,
-                    wordsList.includes(word) && styles.selectedWordBubble,
-                  ]}
-                >
-                  <Text
-                    style={
-                      wordsList.includes(word)
-                        ? styles.selectedWordText
-                        : styles.wordText
-                    }
+            <ScrollView style={{ maxHeight: 67 }}>
+              <View style={styles.wordsContainer}>
+                {globalWords.map((word, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => handleAddGlobalWord(word)}
+                    style={[
+                      styles.wordBubble,
+                      wordsList.includes(word) && styles.selectedWordBubble,
+                    ]}
                   >
-                    {word}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+                    <Text
+                      style={
+                        wordsList.includes(word)
+                          ? styles.selectedWordText
+                          : styles.wordText
+                      }
+                    >
+                      {word}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
           </View>
         )}
 

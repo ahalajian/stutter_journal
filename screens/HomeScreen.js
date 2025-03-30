@@ -10,6 +10,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../styles/HomeScreen.styles';
 import { CustomButton } from '../components/CustomButton';
+import { StuckWordsDisplay } from '../components/StuckWordsDisplay';
 
 export default function HomeScreen({ navigation }) {
   const [entries, setEntries] = useState([]);
@@ -82,20 +83,11 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.entryDate}>{entry.date}</Text>
           <Text>{entry.text}</Text>
 
-          {entry.stuckWords && entry.stuckWords.length > 0 ? (
-            <>
-              <Text style={styles.entryLabel}>Stuck Words:</Text>
-              <View style={styles.wordsContainer}>
-                {entry.stuckWords.map((word, i) => (
-                  <View key={i} style={styles.wordBubble}>
-                    <Text>{word}</Text>
-                  </View>
-                ))}
-              </View>
-            </>
-          ) : (
-            <Text style={styles.entryLabel}>Stuck Words: None</Text>
-          )}
+          <StuckWordsDisplay
+            stuckWords={entry.stuckWords || []}
+            text="Stuck Words"
+          />
+
           <View style={styles.buttonRow}>
             <CustomButton
               title="Edit"
